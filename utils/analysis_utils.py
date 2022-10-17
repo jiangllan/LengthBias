@@ -155,15 +155,12 @@ def metrics_wrt_delta_len(attr_list, test_data, preds, label_ids, file_dir, args
         tpr = tp / (tp + fn)
         tnr = tn / (tn + fp)
         pos_rate = (tp + fp) / (tn + fn)
-        # ppv = tp / (tp + fp)
-        # npv = tn / (tn + fn)
         ba = (tpr + tnr) / 2
         acc = sum(pred_labels == label_ids) / len(test_data[attr_list[0]])
         pos_avg_confidence, neg_avg_confidence = avg_score(softmax_preds, label_ids)
-        result['all'].update({"PosRatio": round(pos_rate, 4), "TPR": round(tpr, 4), "TNR": round(tnr, 4)})
-        # result['all'].update({"PosRatio": round(pos_rate, 4), "TPR": round(tpr, 4), "TNR": round(tnr, 4),
-        #                       "BA": round(ba, 4), "ACC": round(acc, 4), "pos_conf": round(pos_avg_confidence, 4),
-        #                       "neg_conf": round(neg_avg_confidence, 4)})
+        result['all'].update({"PosRatio": round(pos_rate, 4), "TPR": round(tpr, 4), "TNR": round(tnr, 4),
+                              "BA": round(ba, 4), "ACC": round(acc, 4), "pos_conf": round(pos_avg_confidence, 4),
+                              "neg_conf": round(neg_avg_confidence, 4)})
     if args.my_task.lower() in ["trecqa", "trec-2013"]:
         partitions_by_q = partition_by_q(df)
         for i in range(len(partitions_by_q)):
@@ -204,12 +201,9 @@ def metrics_wrt_delta_len(attr_list, test_data, preds, label_ids, file_dir, args
                 tpr = tp / (tp + fn)
                 tnr = tn / (tn + fp)
                 pos_rate = (tp + fp) / (tn + fn)
-                # ppv = tp / (tp + fp)
-                # npv = tn / (tn + fn)
                 ba = (tpr + tnr) / 2
                 pos_avg_confidence, neg_avg_confidence = avg_score(stm_preds, samples_labels)
-                result[key].update({"PosRatio": round(pos_rate, 4), "TPR": round(tpr, 4), "TNR": round(tnr, 4)})
-                # result[key].update({"PosRatio": round(pos_rate, 4), "TPR": round(tpr, 4), "TNR": round(tnr, 4),
-                #                     "BA": round(ba, 4), "ACC": round(acc, 4), "pos_conf": round(pos_avg_confidence, 4),
-                #                     "neg_conf": round(neg_avg_confidence, 4)})
+                result[key].update({"PosRatio": round(pos_rate, 4), "TPR": round(tpr, 4), "TNR": round(tnr, 4),
+                                    "BA": round(ba, 4), "ACC": round(acc, 4), "pos_conf": round(pos_avg_confidence, 4),
+                                    "neg_conf": round(neg_avg_confidence, 4)})
     return result
