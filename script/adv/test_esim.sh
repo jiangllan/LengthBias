@@ -1,6 +1,6 @@
 
 
-python ../run_baseline.py \
+python ../../run_baseline.py \
   --model_name BiMPM \
   --data_dir ../dataset \
   --embedding_dir \

@@ -8,6 +8,7 @@ import os
 
 import numpy as np
 import pandas as pd
+import math
 
 import pdb
 
@@ -60,11 +61,11 @@ def rel_balanced_dataset(dataset, diff, intervals, std_ratio):
         print("\t**BEFORE** pos: {} neg: {} total: {} ratio: {:.2}".format(len(pos_cases), len(neg_cases), len(cases),
                                                                          len(pos_cases) / len(cases)))
         if len(pos_cases) / len(neg_cases) > std_ratio:
-            std_pos_num = int(len(neg_cases) * std_ratio)
+            std_pos_num = math.floor(len(neg_cases) * std_ratio)
             reserved_pos_indx = np.random.choice([i for i in range(len(pos_cases))], std_pos_num, replace=False)
             pos_cases = pos_cases.iloc[reserved_pos_indx]
         elif len(pos_cases) / len(neg_cases) < std_ratio:
-            std_neg_num = int(len(pos_cases) / std_ratio)
+            std_neg_num = math.floor(len(pos_cases) / std_ratio)
             reserved_neg_indx = np.random.choice([i for i in range(len(neg_cases))], std_neg_num, replace=False)
             neg_cases = neg_cases.iloc[reserved_neg_indx]
         cases = np.append(pos_cases, neg_cases, axis=0)
@@ -91,7 +92,7 @@ if __name__ == "__main__":
     data_dir = "./"
     for task in ["QQP", "Twitter-url", "TrecQA", "Microblog"]:
         print("\n"+"="*12, "Processing Task %s" % task, "="*12)
-        adv_dir = os.path.join(data_dir, task, "adversarial")
+        adv_dir = os.path.join(data_dir, task, "balanced")
         if not os.path.exists(adv_dir):
             os.mkdir(adv_dir)
         for split in ["train", "dev"]:
@@ -101,7 +102,7 @@ if __name__ == "__main__":
             rel_lens = get_delta_lens(dataset)
             intervals = np.percentile(rel_lens, [0, 25, 50, 75, 100])
             np.savetxt(os.path.join(adv_dir, "%s.inr" % split), intervals, delimiter=",")
-            label_ratio = len(dataset[dataset['label'] == 1]) / len(dataset[dataset['label'] == 0])
+            label_ratio = len(dataset[dataset['label'] == 1]) / float(len(dataset[dataset['label'] == 0]))
             rel_dataset = rel_balanced_dataset(dataset, rel_lens, intervals[1:4], label_ratio)
             write_data(rel_dataset, adv_dir)
         print("Processing %s data over." % task)

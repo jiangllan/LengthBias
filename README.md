@@ -9,12 +9,7 @@ If you find our project useful in your research, please consider citing:
 ```
 @inproceedings{jiang-etal-2022-length,
     title = "On Length Divergence Bias in Textual Matching Models",
-    author = "Jiang, Lan  and
-      Lyu, Tianshu  and
-      Lin, Yankai  and
-      Chong, Meng  and
-      Lyu, Xiaoyong  and
-      Yin, Dawei",
+    author = "Jiang, Lan and Lyu, Tianshu and Lin, Yankai and Chong, Meng and Lyu, Xiaoyong and Yin, Dawei",
     booktitle = "Findings of the Association for Computational Linguistics: ACL 2022",
     year = "2022",
 }
@@ -39,15 +34,17 @@ To alleviate the length divergence bias, we propose an adversarial training meth
 
 ### Requirements
 
-+ python 3.6
-+ torch 1.6.0+cu101
-+ transformers 4.9.0
-+ datasets 1.8.0
-+ pandas 1.1.5
+```bash
+conda create -n length python=3.6
+conda activate length
+
+git clone https://github.com/jiangllan/LengthBias.git
+cd LengthBias && pip install -r requirements.txt
+```
 
 ### Datasets and Preparation
 
-To obtain the adversarial datasets, please run the `process.py` in `dataset`
+To obtain the balanced datasets, please run the `process.py` in `dataset`
 
 ```bash
 cd dataset
@@ -61,7 +58,7 @@ Finally, the `./dataset` foler will have teh following structure:
   '    |-- Microblog',
   '    |   |-- dev.csv',
   '    |   |-- train.csv',
-  '    |   |-- adversarial',
+  '    |   |-- balanced',
   '    |       |-- dev.csv',
   '    |       |-- dev.inr',
   '    |       |-- train.csv',
@@ -69,7 +66,7 @@ Finally, the `./dataset` foler will have teh following structure:
   '    |-- QQP',
   '    |   |-- dev.csv',
   '    |   |-- train.csv',
-  '    |   |-- adversarial',
+  '    |   |-- balanced',
   '    |       |-- dev.csv',
   '    |       |-- dev.inr',
   '    |       |-- train.csv',
@@ -77,7 +74,7 @@ Finally, the `./dataset` foler will have teh following structure:
   '    |-- TrecQA',
   '    |   |-- dev.csv',
   '    |   |-- train.csv',
-  '    |   |-- adversarial',
+  '    |   |-- balanced',
   '    |       |-- dev.csv',
   '    |       |-- dev.inr',
   '    |       |-- train.csv',
@@ -85,7 +82,7 @@ Finally, the `./dataset` foler will have teh following structure:
   '    |-- Twitter-URL',
   '        |-- dev.csv',
   '        |-- train.csv',
-  '        |-- adversarial',
+  '        |-- balanced',
   '            |-- dev.csv',
   '            |-- dev.inr',
   '            |-- train.csv',
@@ -94,10 +91,7 @@ Finally, the `./dataset` foler will have teh following structure:
 
 ### Training and Evaluation
 
-1. Train BiMPM.
-2. Train MatchPyramid
-3. Train ESIM
-4. Train Transformers
+Coming soon...
 
 ## Contacts
 
